@@ -10,3 +10,5 @@ basically, main.js functions as a server and index.js is a client to that server
 The code is set to run on localhost for now, there are instructions in each file on how to expose the server. clone the repo into a pi connected to the arduino and the web server pi. I suggest copy+pasting the relevant index.js and index.html into the web app.
 
 To run the pi server, execute "node main.js" in the terminal. To run the Pi webserver, execute "node index.js". 
+
+There is a bug in the current build where main.js will send multiple messages to index.js despite only having one emit command. Basically instead of sending one confirmation message it will send 2+. Will look into it in the future. 
