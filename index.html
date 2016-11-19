@@ -1,0 +1,70 @@
+<!-- rudimentary html for testing. has examples of client side socket code -->
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO test</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      
+      
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+      <div style="float:left; width:50%;">
+            <div>
+                <h1>DATA HERE</h1>
+                <p id='data'>data</p>
+            </div>
+            <div>
+                <p id='active'>inactive</p>
+            </div>
+        </div>
+        <div style="float:left; width:50%;">
+          
+        </div>
+    
+
+    <form action=''id='activate-button'>
+        <button>ACTIVATE</button>
+    </form>
+    <form action="" id='command'>
+      <input id="m" autocomplete="off" /><button>Send Command</button>
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      var isActive = false;
+      $('#activate-button').submit(function(){
+          if(!isActive){
+              socket.emit('activate', 'command to activate');
+              isActive=true;
+              $('#active').html('active');
+              $('activate-button').val('DEACTIVATE');
+          }
+          else{
+              socket.emit('deactivate', 'command to deactivate');
+              isActive=false;
+              $('#active').html('inactive');
+              $('activate-button').val('ACTIVATE');
+          }
+        
+        $('#m').val('');
+        return false;
+      });
+
+       $('#command').submit(function(){
+        socket.emit('command', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('data', function(data){
+          $('#data').text(data);
+      });           
+    </script>
+  </body>
+</html>
