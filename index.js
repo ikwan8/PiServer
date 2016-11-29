@@ -30,16 +30,16 @@ io.on('connection', function(socket){
         io.emit('data', rand);
     }
 
-    socket.on('activate', function(msg){
+    socket.on('activate', function(){
         //execute code here
-        other_server.emit('kill');
-        console.log('activation button pressed');
+        other_server.emit('activate');
+        console.log('activation switch pressed');
     });
 
-    socket.on('deactivate', function(msg){
+    socket.on('deactivate', function(){
         //execute code here
-        other_server.emit('message', 'activate');
-        console.log('activation button pressed');
+        other_server.emit('kill');
+        console.log('kill button pressed');
     });
     
     socket.on('command', function(msg){

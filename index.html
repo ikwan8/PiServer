@@ -41,16 +41,17 @@
       var isActive = false;
       $('#activate-button').submit(function(){
           if(!isActive){
-              socket.emit('activate', 'command to activate');
+              socket.emit('activate');
               isActive=true;
+              document.getElementById('activate-button').innerHTML = '<button>DEACTIVATE</button>';
               $('#active').html('active');
-              $('activate-button').val('DEACTIVATE');
+//              $('activate-button').val('DEACTIVATE');
           }
           else{
-              socket.emit('deactivate', 'command to deactivate');
-              isActive=false;
+              socket.emit('deactivate');
+              isActive=false;document.getElementById('activate-button').innerHTML = '<button>ACTIVATE</button>';
               $('#active').html('inactive');
-              $('activate-button').val('ACTIVATE');
+//              $('activate-button').val('ACTIVATE');
           }
         
         $('#m').val('');
